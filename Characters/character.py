@@ -20,7 +20,7 @@ class Character:
             base_dex        = 0,
             intelligence    = Intelligence,
             base_int        = 0,
-            life            = Life
+            life            = Life,
     ):
         self.level = level
         self.strength = strength(base=base_str)
@@ -38,5 +38,3 @@ class Character:
             },
             # TODO fill in the effects
         )
-
-
