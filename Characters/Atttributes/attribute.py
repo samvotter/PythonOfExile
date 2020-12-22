@@ -34,8 +34,6 @@ class AttributeKeyword:
         return self._current
 
 
-
-
 class LevelModifier(AttributeKeyword):
     """
     Description:
@@ -158,15 +156,15 @@ class Attribute:
     def __init__(
             self,
             base=0,
-            level_modifier=None,
+            level_modifier=0.0,
             strength_modifier=0.0,
             dexterity_modifier=0.0,
             intelligence_modifier=0.0,
-            add_mods=None,
-            inc_mods=None,
-            dec_mods=None,
-            more_mods=None,
-            less_mods=None
+            add_mods=0.0,
+            inc_mods=0.0,
+            dec_mods=0.0,
+            more_mods=0.0,
+            less_mods=0.0
     ):
         self.base                  = base
         self.level_modifier        = LevelModifier(base=level_modifier)
@@ -184,10 +182,10 @@ class Attribute:
         total += strength * self.strength_modifier.get_current()
         total += dexterity * self.dexterity_modifier.get_current()
         total += intelligence * self.intelligence_modifier.get_current()
-        total *= (1 + self.increase.get_current() + self.decrease.get_current())
+        total *= (1 + self.increase.get_current() - self.decrease.get_current())
         total *= self.more.get_current()
         total *= self.less.get_current()
-        return total
+        return int(total)
 
 
 class Strength(Attribute):

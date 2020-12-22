@@ -14,21 +14,27 @@ from Characters.Atttributes.attribute import Life
 
 @pytest.mark.parametrize(
     "level,strength,add,inc,dec,more,less,result", [
-        (1, 0, 0, 0, 0, 0, 0,                   50),
-        (1, 100, 0, 0, 0, 0, 0,                 100),
-        (1, 100, {"ten":10, ""}, [], [], [], [], 120),
-        (1, {"strength": 100}, [], [10, 10], [], [], [], 120),
-        (1, {"strength": 100}, [10, 10], [10, 10], [], [], [], 144),
-        (1, {"strength": 100}, [10, 10], [], [10, 10], [], [], 96),
-        (1, {"strength": 100}, [10, 10], [10, 10], [], [10, 10], [], 174),
-        (1, {"strength": 100}, [10, 10], [10, 10], [], [], [10, 10], 116),
-        (1, {"strength": 100}, [1, 2], [3, 4], [5, 6], [7, 8], [9, 10], 93),
+        (1, 0, {}, {}, {}, {}, {},                                                                          50),
+        (1, 80, {}, {}, {}, {}, {},                                                                         90),
+        (1, 80, {"ten": 10, "twenty": 20}, {}, {}, {}, {},                                                  120),
+        (1, 80, {}, {"ten": 10, "twenty": 20}, {}, {}, {},                                                  117),
+        (1, 80, {"ten": 10, "twenty": 20}, {"ten": 10, "twenty": 20}, {}, {}, {},                           156),
+        (1, 80, {"ten": 10, "twenty": 20}, {}, {"ten": 10, "twenty": 20}, {}, {},                           84),
+        (1, 80, {"ten": 10, "twenty": 20}, {"ten": 10, "twenty": 20}, {}, {"ten": 10, "twenty": 20}, {},    205),
+        (1, 80, {}, {}, {"ten": 10, "twenty": 20}, {}, {"ten": 10, "twenty": 20},                           45),
+        (1, 80,
+         {"ten": 10, "twenty": 20}, {"ten": 10, "twenty": 20},
+         {"ten": 10, "twenty": 20}, {"ten": 10, "twenty": 20}, {"ten": 10, "twenty": 20},                   114),
 
     ]
 )
 def test_X_life(level, strength, add, inc, dec, more, less, result):
     life = Life()
-    life._add
+    life.additional.add_source(add)
+    life.increase.add_source(inc)
+    life.decrease.add_source(dec)
+    life.more.add_source(more)
+    life.less.add_source(less)
 
     calculated = life.get_current_total(
         level=level,
