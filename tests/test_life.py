@@ -13,10 +13,10 @@ from Characters.Atttributes.attribute import Life
 
 
 @pytest.mark.parametrize(
-    "level,sdi,add,inc,dnc,more,less,result", [
-        (1, {"strength": 0}, [], [], [], [], [], 50),
-        (1, {"strength": 100}, [], [], [], [], [], 100),
-        (1, {"strength": 100}, [10, 10], [], [], [], [], 120),
+    "level,strength,add,inc,dec,more,less,result", [
+        (1, 0, 0, 0, 0, 0, 0,                   50),
+        (1, 100, 0, 0, 0, 0, 0,                 100),
+        (1, 100, {"ten":10, ""}, [], [], [], [], 120),
         (1, {"strength": 100}, [], [10, 10], [], [], [], 120),
         (1, {"strength": 100}, [10, 10], [10, 10], [], [], [], 144),
         (1, {"strength": 100}, [10, 10], [], [10, 10], [], [], 96),
@@ -26,16 +26,13 @@ from Characters.Atttributes.attribute import Life
 
     ]
 )
-def test_X_life(level, sdi, add, inc, dnc, more, less, result):
+def test_X_life(level, strength, add, inc, dec, more, less, result):
     life = Life()
-    calculated = life.get_total(
-        character_level=level,
-        sdi=sdi,
-        additional=add,
-        increase=inc,
-        decrease=dnc,
-        more=more,
-        less=less
+    life._add
+
+    calculated = life.get_current_total(
+        level=level,
+        strength=strength
     )
     assert calculated == result
 
